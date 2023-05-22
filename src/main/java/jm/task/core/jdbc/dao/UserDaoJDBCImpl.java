@@ -1,8 +1,6 @@
 package jm.task.core.jdbc.dao;
 
 import jm.task.core.jdbc.model.User;
-import jm.task.core.jdbc.service.UserService;
-import jm.task.core.jdbc.service.UserServiceImpl;
 import jm.task.core.jdbc.util.Util;
 
 import java.sql.ResultSet;
@@ -26,7 +24,7 @@ public class UserDaoJDBCImpl implements UserDao {
                     "  `age` TINYINT DEFAULT NULL,\n" +
                     "  PRIMARY KEY (`id`)\n" +
                     ")");
-            } catch (SQLException e) {
+        } catch (SQLException e) {
             System.out.println("Не удалось создать таблицу.");
             e.printStackTrace();
         }
@@ -43,9 +41,9 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
-       String comm = String.format("INSERT INTO users (name, lastName, age) VALUES ('%s', '%s', %d);", name, lastName, age);
+        String comm = String.format("INSERT INTO users (name, lastName, age) VALUES ('%s', '%s', %d);", name, lastName, age);
         try {
-             Util.getStatement().execute(comm);
+            Util.getStatement().execute(comm);
             System.out.println("User с именем - " + name + " добавлен в базу данных.");
         } catch (SQLException e) {
             System.out.println("Не удалось добавить юзера в таблицу.");
