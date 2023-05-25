@@ -1,7 +1,6 @@
 package jm.task.core.jdbc.util;
 
 
-import java.net.URL;
 import java.sql.*;
 import java.util.Properties;
 import java.util.logging.Logger;
@@ -13,12 +12,8 @@ public class Util {
     private static final String USERNAME = "root";
     private static final String PASSWORD = "123456";
 
-   /* public static void doMySQLCommand(String command) throws SQLException {
-        Util.getStatement().execute(command);
-    */
-
-    public static Statement getStatement() {
-        Statement statement = null;
+    public static Connection getMySQLConnection() {
+        Connection connection = null;
         try {
             Driver driver = new Driver() {
                 @Override
@@ -57,11 +52,12 @@ public class Util {
                 }
             };
             DriverManager.registerDriver(driver);
-            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-            statement = connection.createStatement();
+            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
-            System.out.println("Драйвер не зарегестрировался");
+            System.out.println("Something wrong with connection");
+            e.printStackTrace();
         }
-        return statement;
+        return connection;
     }
 }
+
